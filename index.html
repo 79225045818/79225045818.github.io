@@ -1,0 +1,38 @@
+<html5>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" language="javascript">
+        $('form#formx').on('submit', function(e) {
+          e.preventDefault();
+          var msg   = $(this).serialize();
+            $.ajax({
+              type: 'POST',
+              url: 'https://script.google.com/macros/s/AKfycbxwUcIPg5ouQIU8LUYaP9YUEfMtQfRF-50IId9N3tQ8TBsOPFtH/dev',
+              data: msg,
+              success: function(data) {
+                //в data должен быть ответ сервера в формате JSON
+                var response = JSON.parse(data); //массив в котором ваши данные
+                var html='<ul>';
+                for(var i in response)html+='<li>'+response[i]+'</li>';
+                html+='</ul>';
+                $('#results').html(html);
+                  // i - номер объекта, {key} - ваш ключ из массива
+              },
+              error:  function(xhr, str){
+                    alert('Возникла ошибка: ' + xhr.responseCode);
+                }
+            });
+      });
+    </script>
+</head>
+
+<body>
+<form id="formx">
+        <legend>Test From</legend>
+        <label for="name">Название:</label>
+        <input id="name" name="data" value="" type="text">
+        <input value="Send" type="submit">
+    </form>
+<div id=\"results\">Вывод</div>
+</bdoy>
+</html>
